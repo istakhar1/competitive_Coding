@@ -1,0 +1,39 @@
+
+ *****************************************************************************
+ COMPARATOR FUNCTION ME IF WE RETURN TRUE MENANS ==>> CHANG/SWAP NAHI KARNA H
+ AND AGAR WE RETURN FALSE ==> MATLAB CHANGE/SWAP KARNA H
+ *****************************************************************************
+class Solution {
+public:
+
+static unsigned int countsetbit(int n){
+    unsigned int count=0;
+    while(n){
+        n&=(n-1);
+        count++;
+    }
+    return count;
+}
+    
+static bool compareInterval(int a, int b)
+{
+    if(countsetbit(a)<countsetbit(b)){
+        return true;
+    }
+    else if(countsetbit(a)==countsetbit(b)){
+        if(a<b){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    return false;
+}
+
+vector<int> sortByBits(vector<int>& arr) {
+     Solution OBJ;
+    sort(arr.begin(),arr.end(),compareInterval);
+    return arr;
+        
+    }
+};

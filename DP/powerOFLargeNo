@@ -1,0 +1,73 @@
+#include <iostream>
+using namespace std;
+
+string solve(int a,int b,int c){
+
+    //case 1 : a & b are positive 
+    if(a >=0 && b>=0){
+        if(a!=b){
+            return a>b ? ">" : "<";
+        }
+        else{
+            return "=";
+        }
+    }
+
+    //case 2 : a is positive and b is negative
+    if(a>=0 && b<0){
+        //if c is odd then pow(b,c) will be neagtive  
+        if(c%2){
+            return ">";
+        }
+        else{
+            if(abs(a)!=abs(b)){
+                return abs(a)>abs(b)?">":"<";
+            }
+            else{
+                return "=";
+            }
+        }
+
+    }
+
+    // case 3 : a is negative and b is positive
+    if(b>=0 && a<0){
+        //if c is odd then pow(a,c) will be neagtive  
+        if(c%2){
+            return "<";
+        }
+        else{
+            if(abs(a)!=abs(b)){
+                return abs(a)>abs(b)?">":"<";
+            }
+            else{
+                return "=";
+            }
+        }
+
+    }
+
+    // case 4 : a & b are negative 
+    if(a<0 && b<0){
+        if(abs(a)!=abs(b)){
+            //if c is odd
+            if(c%2){
+                return abs(a)>abs(b)?"<":">";
+            }
+            else{
+                return abs(a)>abs(b)?">":"<";
+            }
+        }
+        else{
+            return "=";
+        }
+    }
+
+    return " x ";
+}
+
+
+int main(){
+    
+    return 0;
+}

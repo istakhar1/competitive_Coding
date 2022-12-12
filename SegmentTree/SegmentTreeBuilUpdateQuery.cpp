@@ -3,44 +3,66 @@
 // using namespace __gnu_pbds;
 using namespace std;
  
-#define ff              first
-#define ss              second
-#define int             long long
-#define pb              push_back
-// #define mp              make_pair
-#define pii             pair<int,int>
-#define vi              vector<int>
-#define vvi             vector<vector<int>>
-#define mii             map<int,int>
-#define pqb             priority_queue<int>
-#define pqs             priority_queue<int,vi,greater<int> >
-#define setbits(x)      __builtin_popcountll(x)
-#define zrobits(x)      __builtin_ctzll(x)
-#define mod             1000000007
-#define inf             1e18
-#define ps(x,y)         fixed<<setprecision(y)<<x
-#define mk(arr,n,type)  type *arr=new type[n];
-#define w(x)            int x; cin>>x; while(x--)
+
 // mt19937                 rng(chrono::steady_clock::now().time_since_epoch().count());
+int queryOnSegmentTree(int *segTree, int start , int end, int treeIndex , int left , int right){
+    if(start > right || end < left){
+        return 0;
+    }
+    if(start>=left && end<=right){
+        return segTree[treeIndex];
+    }
+    int mid = (start +end)/2;
+    int leftValue = queryOnSegmentTree(segTree,start, mid, 2*treeIndex,left,right);
+    int rightValue = queryOnSegmentTree(segTree,mid+1, end, 2*treeIndex+1,left, right);
 
-
-// here w= 10^9 so we cant take w in array but v= 10^3 so we can take it if we take it then we shoud store w;;
-//  if dp[index][value]= weight if this is <= w then value shoud be answer 
-//typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> pbds;
-
-
-
-
-int getLongestPath(){
+    return leftValue+rightValue; 
 
 }
 
+void buildSegmentTree(int *arr, int *segTree,int start , int end, int treeIndex){
+    if(start==end){
+        segTree[treeIndex]= arr[start];
+        return ;
+    }
+    int mid = (start + end)/2;
+    buildSegmentTree(arr,segTree,start,mid,2*treeIndex);
+    buildSegmentTree(arr,segTree,mid+1,end,2*treeIndex+1);
+
+    segTree[treeIndex] = segTree[2*treeIndex] + segTree[2*treeIndex+1];
+}
 
 
  
 void c_p_c()
 {   
- 
+    int mod= 998244353;
+    int t;
+    cin>>t;
+    while(t--){
+              int n;
+        cin>>n;
+        int *arr = new int[n];
+        for(int i=0;i<n;i++)cin>>arr[i];
+    
+        int *segTree = new int[4*n];
+        buildSegmentTree(arr,segTree,0,n-1,1);
+    
+        //find rage sum from array 
+        int ans=0;
+        for(int i=0;i<n;i++){
+            for(int j=i;j<n;j++){
+                int val = queryOnSegmentTree(segTree,0,n-1,1,i,j);
+                int sq = (val%mod * val%mod)%mod;
+                int qu = (sq%mod * val%mod)%mod;
+                
+                ans = (ans%mod + qu%mod)%mod;
+            }
+        }
+        
+        cout<<ans<<"\n";
+    }
+  
 }
  
 int32_t main()

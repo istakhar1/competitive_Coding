@@ -5,6 +5,23 @@ using namespace std;
  
 
 // mt19937                 rng(chrono::steady_clock::now().time_since_epoch().count());
+void updateOnSegmentTree(int *arr, int *segTree, int start , int end, int treeIndex , int index, int value){
+    if(start==end){
+        arr[index]= value;
+        segTree[treeIndex]= value;
+        return;
+    }
+    int mid = (start + end)/2;
+    if(index > mid){
+        updateOnSegmentTree(arr, segTree, mid+1, end, 2*treeIndex+1, index, value);
+    }else{
+        updateOnSegmentTree(arr, segTree, start, mid, 2*treeIndex, index, value);
+
+    }
+
+    segTree[treeIndex] = segTree[2*treeIndex]+ segTree[2*treeIndex+1];
+}
+
 int queryOnSegmentTree(int *segTree, int start , int end, int treeIndex , int left , int right){
     if(start > right || end < left){
         return 0;
@@ -49,18 +66,14 @@ void c_p_c()
         buildSegmentTree(arr,segTree,0,n-1,1);
     
         //find rage sum from array 
-        int ans=0;
-        for(int i=0;i<n;i++){
-            for(int j=i;j<n;j++){
-                int val = queryOnSegmentTree(segTree,0,n-1,1,i,j);
-                int sq = (val%mod * val%mod)%mod;
-                int qu = (sq%mod * val%mod)%mod;
-                
-                ans = (ans%mod + qu%mod)%mod;
-            }
-        }
+
+   
+        int val = queryOnSegmentTree(segTree,0,n-1,1,1,4);// last 2 value l and r hai
+
         
-        cout<<ans<<"\n";
+        // cout<<"Before update :: "<<val<<"\n";
+        updateOnSegmentTree(arr,segTree,0,n-1,1,4,16);
+        cout<<"After update :: "<<queryOnSegmentTree(segTree,0,n-1,1,1,4)<<"\n";
     }
   
 }

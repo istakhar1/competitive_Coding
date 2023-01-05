@@ -78,11 +78,12 @@ int32_t main()
     for(int i=0;i<n;i++){
         cin>>waight[i];
     }
-    int x;
-    cin>>x;
+    for(int i=0;i<n;i++){
+        cout<<waight[i]<<" ";
+    }
     //n= nmber of nodes and m= number of edges
     vi adj[n+1];
-    for(int i=0;i<n;i++){
+    for(int i=0;i<n-1;i++){
     	int u,v;//U= NUMBER OF NODES V = NUMBER OF VERTICES
     	cin>>u>>v;
     	adj[u].pb(v);
@@ -95,7 +96,7 @@ int32_t main()
     	}
     	cout<<"\n";
     }
-   cout<<DFS_of_graph(n,adj,waight,x);
+//    cout<<DFS_of_graph(n,adj,waight,n-1);
     
 }
     return 0;

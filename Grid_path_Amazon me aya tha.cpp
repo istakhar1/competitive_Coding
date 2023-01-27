@@ -52,12 +52,12 @@ int  fun(int i,int j,vector<vector<int>>path,vector<vector<bool>>visit,int sum,i
 		sum+=1;
 	}
 		int v1= fun(i+1,j,path,visit,sum,n);
-    	int v2= fun(i,j+1,path,visit,sum,n);
+    	int container= fun(i,j+1,path,visit,sum,n);
 		int v3= fun(i-1,j,path,visit,sum,n);
 		int v4= fun(i,j-1,path,visit,sum,n);
 
 	
-	return min(min(v1,v2),min(v3,v4));
+	return min(min(v1,container),min(v3,v4));
 	
  }
 int32_t main()

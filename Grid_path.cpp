@@ -33,71 +33,90 @@ void c_p_c()
     freopen("output1.txt", "w", stdout);
 #endif
 }
-int  fun(int i,int j,vector<vector<int>>path,vector<vector<bool>>visit,int sum,int n){
+int  fun(int i,int j,vector<vector<int>>path,vector<vector<bool>>visit,int sum,int m,int n){
 
-	if(((i<0 || j<0) || (i>=n || j>=n)) ){
+	if(((i<0 || j<0) || (i>=m || j>=n)) ){
 		return INT_MAX;
 	}
 	if(visit[i][j]==true){
 	 return INT_MAX;
 	}
+   
 	visit[i][j]=true;
-	if(path[i][j]==9){
+  
+	if(i==n-1&& j==m-1&&path[i][j]==9){
 		
 		return (sum+1);
 	}
 	
-	if(path[i][j]==1){
-	    
+  
 		sum+=1;
-	}
-		int v1= fun(i+1,j,path,visit,sum,n);
-    	int v2= fun(i,j+1,path,visit,sum,n);
-		int v3= fun(i-1,j,path,visit,sum,n);
-		int v4= fun(i,j-1,path,visit,sum,n);
-
 	
-	return min(min(v1,v2),min(v3,v4));
+		int v1= fun(i+1,j,path,visit,sum,n,m);
+    	int container= fun(i,j+1,path,visit,sum,n,m);
+		int v3= fun(i-1,j,path,visit,sum,n,m);
+		int v4= fun(i,j-1,path,visit,sum,n,m);
+        int v5 =INT_MAX;
+        int v6 =INT_MAX;
+        int v7 =INT_MAX;
+        int v8 =INT_MAX;
+        if(path[i][j]==99){
+            
+            // v5 = fun(i-1,j-1,path,visit,sum,n,m);
+            // v6 = fun(i-1,j+1,path,visit,sum,n,m);
+            // v7 = fun(i+1,j-1,path,visit,sum,n,m);
+            v8 = fun(i+1,j+1,path,visit,sum,n,m);
+        }
+	
+    // cout<<v1<<" "<<container<<" "<<v3<<" "<<v4<<"\n";
+	return min(min(min(v1,container),min(v3,v4)), min(min(v5,v6),min(v7,v8)));
 	
  }
 int32_t main()
 {
     c_p_c();
-    int n;
-    cin>>n;
-    vector<vector<int>>path(n,vector<int>(n));
-    for(int i=0;i<n;i++){
-    	for(int j=0;j<n;j++){
-    		cin>>path[i][j];
-    	}
+    int t;
+    cin>>t;
+    while(t--){
+    int n,m,k;
+    cin>>m>>n>>k;
+    vector<vector<int>>path(m,vector<int>(n,1));
+    path[m-1][n-1]=9;
+    while(k--){
+        
+        int r,k;
+        cin>>r>>k;
+        path[r-1][k-1]=99;
     }
-    //  for(int i=0;i<n;i++){
+    
+     for(int i=0;i<n;i++){
+    	for(int j=0;j<n;j++){
+    		cout<<path[i][j]<<" ";
+    	}
+    	cout<<"\n";
+    }
+    vector<vector<bool>>visit(m,vector<bool>(n,false));
+   	// for(int i=0;i<m;i++){
     // 	for(int j=0;j<n;j++){
-    // 		cout<<path[i][j]<<" ";
+    // 		if(path[i][j]==0){
+    // 			visit[i][j]=true;
+    // 		}
     // 	}
-    // 	cout<<"\n";
-    // }
-    vector<vector<bool>>visit(n,vector<bool>(n,false));
-   	for(int i=0;i<n;i++){
-    	for(int j=0;j<n;j++){
-    		if(path[i][j]==0){
-    			visit[i][j]=true;
-    		}
-    	}
     	
-    }
+    // }
     if(path[0][0]==0){
         cout<<-1;
     }
     else{
-        int v=fun(0,0,path,visit,0,n);
+        int v=fun(0,0,path,visit,0,m,n);
         if(v==INT_MAX){
-            cout<<-1;
+            cout<<-1<<"\n";
         }
         else{
-            cout<<v;
+            cout<<v-1<<"\n";
         }
         
+    }
     }
     return 0;
 }

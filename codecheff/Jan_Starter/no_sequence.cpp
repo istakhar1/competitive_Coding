@@ -7,7 +7,7 @@ using namespace std;
 #define ss              second
 #define int             long long
 #define pb              push_back
-// #define mp              make_pair
+#define mp              make_pair
 #define pii             pair<int,int>
 #define vi              vector<int>
 #define vvi             vector<vector<int>>
@@ -21,6 +21,7 @@ using namespace std;
 #define ps(x,y)         fixed<<setprecision(y)<<x
 #define mk(arr,n,type)  type *arr=new type[n];
 #define w(x)            int x; cin>>x; while(x--)
+#define ld              long double
 // mt19937                 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 
@@ -28,68 +29,58 @@ using namespace std;
 //  if dp[index][value]= weight if this is <= w then value shoud be answer 
 //typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> pbds;
 
-int dp[1001][1001];
+void getSolution(int n,int k ,int sum){
+    int s=sum;
+    vi b(n);
+    // b[0]=sum%k;
+    // sum=(sum-b[0])/k;
+    for(int i=0;i<n;i++){
+    
+        if(sum%k==0){
 
+        }
+        else if(sum%k==1){
+            b[i]=1;
+            sum--;
+        }
+        else{
+            b[i]=-1;
+            sum++;
+        }
+       
+        sum=(sum)/k;
+    }
+        
 
-int getLongestPath(int h,int w,vector<vector<char>> &adj){
-    if(h==0&&w==0){
-        return dp[h][w]=1;
+    int val=0;
+    for(int i=0;i<n;i++){
+        val+=(b[i]*pow(k,i));
     }
 
-    if(adj[h][w]=='#'){
-        return dp[h][w]=0;
+    if(val==s){
+        for(auto x:b){
+            cout<<x<<" ";
+        }
+        cout<<"\n";
+        return;
     }
-    int &ans= dp[h][w];
-    if(ans!=-1){
-        return ans;
-    }
-    if(h==0){
-        return ans = getLongestPath(h,w-1,adj)%mod;
-    }
-    if(w==0){
-        return ans = getLongestPath(h-1,w,adj)%mod;
-    }
-
- 
-  
-    return ans = (getLongestPath(h-1,w,adj)%mod + getLongestPath(h,w-1,adj)%mod)%mod;
-   
+    
+cout<<"-2"<<"\n";
+return ;
+    
+    
 }
-
-
  
 void c_p_c()
 {   
-
     int t;
     cin>>t;
     while(t--){
-    int h,w,k;
-    cin>>h>>w>>k;
-    cout<<h<<w<<k;
-    vector<vector<char>> adj(h,vector<char>(w ,' '));
-    if(k){
-        while (k--)
-        {
-            int r,c;
-            cin>>r>>c;
-            adj[r][c]='#';
-            /* code */
-        }
-        
+        int n,k,s;
+        cin>>n>>k>>s;
+        getSolution(n,k,s);
     }
-    // for(int i=0;i<h;i++){
-    //     for(int j=0;j<w;j++){
-    //         cin>>adj[i][j];
-    //     }
-    // }
-
-    memset(dp,-1,sizeof(dp));
-    // dp[0][0]=1;
-    int ans =getLongestPath(h-1,w-1,adj);
-    ans = ans==-1?0:ans;
-    cout<<ans<<"\n";
-    }
+  
 
 }
  

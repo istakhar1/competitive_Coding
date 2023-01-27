@@ -49,33 +49,33 @@ int32_t main()
 		if(v[i]=='+'){
 			int v1=stk.top();
 			stk.pop();
-			int v2=stk.top();
+			int container=stk.top();
 			stk.pop();
-			stk.push(v2+v1);
+			stk.push(container+v1);
 			continue;
 		}
 		else if(v[i]=='-'){
 			int v1=stk.top();
 			stk.pop();
-			int v2=stk.top();
+			int container=stk.top();
 			stk.pop();
-			stk.push(v2-v1);
+			stk.push(container-v1);
 			continue;
 		}
 		else if(v[i]=='*'){
 			int v1=stk.top();
 			stk.pop();
-			int v2=stk.top();
+			int container=stk.top();
 			stk.pop();
-			stk.push(v2*v1);
+			stk.push(container*v1);
 			continue;
 		}
 		else if(v[i]=='/'){
 			int v1=stk.top();
 			stk.pop();
-			int v2=stk.top();
+			int container=stk.top();
 			stk.pop();
-			stk.push(v2/v1);
+			stk.push(container/v1);
 			continue;
 		}
 		else{

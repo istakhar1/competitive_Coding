@@ -7,7 +7,7 @@ using namespace std;
 #define ss              second
 #define int             long long
 #define pb              push_back
-// #define mp              make_pair
+#define mp              make_pair
 #define pii             pair<int,int>
 #define vi              vector<int>
 #define vvi             vector<vector<int>>
@@ -21,6 +21,7 @@ using namespace std;
 #define ps(x,y)         fixed<<setprecision(y)<<x
 #define mk(arr,n,type)  type *arr=new type[n];
 #define w(x)            int x; cin>>x; while(x--)
+#define ld              long double
 // mt19937                 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 
@@ -28,68 +29,33 @@ using namespace std;
 //  if dp[index][value]= weight if this is <= w then value shoud be answer 
 //typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> pbds;
 
-int dp[1001][1001];
 
-
-int getLongestPath(int h,int w,vector<vector<char>> &adj){
-    if(h==0&&w==0){
-        return dp[h][w]=1;
-    }
-
-    if(adj[h][w]=='#'){
-        return dp[h][w]=0;
-    }
-    int &ans= dp[h][w];
-    if(ans!=-1){
-        return ans;
-    }
-    if(h==0){
-        return ans = getLongestPath(h,w-1,adj)%mod;
-    }
-    if(w==0){
-        return ans = getLongestPath(h-1,w,adj)%mod;
+int contingTowerDp(int n){
+    int sep[n],join[n];
+    sep[0]= join[0]=1;
+    for(int i=1;i<n;i++){
+        sep[i] = ((sep[i-1]*4)+join[i-1]);
+        sep[i]%=mod;
+        join[i] = ((2*join[i-1])+ sep[i-1]);
+        join[i]%=mod;
     }
 
- 
-  
-    return ans = (getLongestPath(h-1,w,adj)%mod + getLongestPath(h,w-1,adj)%mod)%mod;
-   
+    return (sep[n-1]%mod + join[n-1]%mod)%mod;
+
 }
 
 
- 
 void c_p_c()
 {   
-
-    int t;
-    cin>>t;
-    while(t--){
-    int h,w,k;
-    cin>>h>>w>>k;
-    cout<<h<<w<<k;
-    vector<vector<char>> adj(h,vector<char>(w ,' '));
-    if(k){
-        while (k--)
-        {
-            int r,c;
-            cin>>r>>c;
-            adj[r][c]='#';
-            /* code */
-        }
-        
-    }
-    // for(int i=0;i<h;i++){
-    //     for(int j=0;j<w;j++){
-    //         cin>>adj[i][j];
-    //     }
-    // }
-
-    memset(dp,-1,sizeof(dp));
-    // dp[0][0]=1;
-    int ans =getLongestPath(h-1,w-1,adj);
-    ans = ans==-1?0:ans;
-    cout<<ans<<"\n";
-    }
+    
+   int t;
+   cin>>t;
+   while(t--){
+    int n;
+    cin>>n;
+    cout<<contingTowerDp(n)<<"\n";
+    
+   }
 
 }
  
@@ -100,6 +66,7 @@ int32_t main()
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
 #endif
+
     c_p_c();
     
     return 0;

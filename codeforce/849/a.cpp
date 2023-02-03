@@ -37,6 +37,10 @@ int moduloMultiplicativeInverse(int a,int b){
     return ans;
 }
 
+void solve(int n){
+//write code here
+    cout<<n<<"\n";
+}
 void c_p_c()
 {
     int t;
@@ -44,8 +48,8 @@ void c_p_c()
     while(t--){
         int n;
         cin>>n;
-        // write code here
-    
+        solve(n);
+      
     }
 }
  

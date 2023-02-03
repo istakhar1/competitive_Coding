@@ -44,7 +44,35 @@ int contingTowerDp(int n){
 
 }
 
-string pi ="3141592653589793238462643383279";
+vector<int> topoSort(int V, vector<int> adj[]){
+    vector<int> ans;
+    // cout<<"value of v"<<V<<"\n";
+    vector<int> in (V,0);
+    for(int i=1;i<V;i++){
+        for(auto it: adj[i])
+            in[it]++;
+    }
+    
+    queue<int>q;
+    for(int i=1;i<V;i++){
+        // cout<<in[i]<<" ";
+        if(in[i]==0){
+            // cout<<"\n aya"<<i;
+             q.push(i);
+        }
+    }
+    // cout<<q.front();
+    while(q.size()!=0){
+        int node= q.front();
+        q.pop();
+        ans.push_back(node);
+        for(auto it:adj[node]){
+            in[it]--;
+            if(in[it]==0)q.push(it);
+        }
+    }
+    return ans;
+}
 
 void c_p_c()
 {   
@@ -52,54 +80,27 @@ void c_p_c()
    int t;
    cin>>t;
    while(t--){
-    int m;
-    cin>>m;
-    int n=m-1;
-    vector<vector<int>> a(m,vector<int>(n));
-
-    for(int i=0;i<m;i++){
-        for(int j=0;j<n;j++){
-            cin>>a[i][j];
-        }
-
-    }
-    int freq[101]={0};
-
+    int n;
+    cin>>n;
+    vector<vector<int>> arr;
+    vector<int> adj[n+1];
     for(int i=0;i<n;i++){
-        for(int j=0;j<m;j++){
-            freq[a[j][i]]++;
-            // cout<<a[j][i]<<" ";
-        }
-        int val=0;
-        int count=0;
-        for(int i=1;i<=m;i++){
-            // cout<<freq[i]<<" ";
-            if(freq[i]>count){
-                count=freq[i];
-                val=i;
-            }
-
-        }
-        freq[val]=-1;
-        // cout<<"\n";
-        cout<<val<<" ";
-       
-
-
-    
-    }
-
-    for(int i=1;i<=m;i++){
-        if(freq[i]!=-1 && freq[i]!=0){
-            cout<<i<<" ";
-            break;
+        vector<int> temp(n);
+        for(int j=1;j<n;j++)cin>>temp[j];
+        for(int k=2;k<n;k++){
+            adj[temp[k-1]].push_back(temp[k]);
         }
     }
-    cout<<"\n";
-
-   
-
-    
+    // for(int i=0;i<n;i++){
+    //     cout<<i<<"-> ";
+    //     for(auto x: adj[i]){
+    //         cout<<x<<", ";
+    //     }
+    //     cout<<"\n";
+    // }
+    vector<int> ans = topoSort(n+1,adj);
+    for(auto it:ans)cout<<it<<" ";
+    cout<<"\n";    
    }
 
 }

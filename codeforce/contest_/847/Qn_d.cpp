@@ -5,7 +5,7 @@ using namespace std;
  
 #define ff              first
 #define ss              second
-#define int             long long
+#define int             long long int
 #define pb              push_back
 #define mp              make_pair
 #define pii             pair<int,int>
@@ -39,14 +39,13 @@ int moduloMultiplicativeInverse(int a,int b){
 
 void c_p_c()
 {
-    int t;
-    cin>>t;
-    while(t--){
-        int n;
-        cin>>n;
-        // write code here
     
-    }
+       int n,m;
+       cin>>n>>m;
+       int val = moduloMultiplicativeInverse(2,m)-1;
+       int ans= moduloMultiplicativeInverse(val,n);
+       cout<<ans<<"\n";
+    
 }
  
 int32_t main()

@@ -44,10 +44,14 @@ void c_p_c()
     while(t--){
         int n;
         cin>>n;
-        // write code here
-    
+        int arr[n];
+        for(int i=0;i<n;i++){
+            cin>>arr[i];
+        }
+        cout<<0<<"\n";
     }
 }
+
  
 int32_t main()
 {

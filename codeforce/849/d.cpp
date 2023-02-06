@@ -7,7 +7,7 @@ using namespace std;
 #define ss              second
 #define int             long long
 #define pb              push_back
-#define mp              make_pair
+// #define mp              make_pair
 #define pii             pair<int,int>
 #define vi              vector<int>
 #define mii             map<int,int>
@@ -24,7 +24,7 @@ mt19937                 rng(chrono::steady_clock::now().time_since_epoch().count
  
 //typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> pbds;
 
-int moduloMultiplicativeInverse(int a,int b){ // a/b modulo 100000007
+int moduloMultiplicativeInverse(int a,int b){
     if(a==0){
         return b==0;
     }
@@ -37,26 +37,48 @@ int moduloMultiplicativeInverse(int a,int b){ // a/b modulo 100000007
     return ans;
 }
 
-const string s = "codeforces";
-void solve(char c){
+int fun(string s){
+    set<char>st;
     for(auto x:s){
-        if(c==x){
-            cout<<"YES\n";
-            return;
-        }
+        st.insert(x);
     }
-    cout<<"NO\n";
-    return;
+    return st.size();
 }
+
+
+
+void solve(int n, string s){
+    vector<int> cnt(26,0), p(26,0);
+    for(auto x: s){
+        cnt[x-'a']++;
+    }
+    int ans=0;
+    for(auto x: s){
+        cnt[x-'a']--;
+        p[x-'a']++;
+        int curr=0;
+        for(int i=0;i<26;i++){
+            curr += min(1LL,cnt[i]) + min(1LL,p[i]);
+        }
+        ans= max(ans,curr);
+    }
+    cout<<ans<<"\n";
+    return;
+
+}
+
+
 void c_p_c()
 {
     int t;
     cin>>t;
     while(t--){
-        char n;
+        int n;
         cin>>n;
-        solve(n);
-      
+        string s;
+        cin>>s;
+        solve(n,s);
+        // write code here
     }
 }
  

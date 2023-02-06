@@ -24,7 +24,7 @@ mt19937                 rng(chrono::steady_clock::now().time_since_epoch().count
  
 //typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> pbds;
 
-int moduloMultiplicativeInverse(int a,int b){ // a/b modulo 100000007
+int moduloMultiplicativeInverse(int a,int b){
     if(a==0){
         return b==0;
     }
@@ -36,27 +36,38 @@ int moduloMultiplicativeInverse(int a,int b){ // a/b modulo 100000007
     }
     return ans;
 }
+// 1 + 1+ 1=3  if we do 3-1 =2 but sum is 2 -1 =1 this resoon here sum - = 2*a[0]
 
-const string s = "codeforces";
-void solve(char c){
-    for(auto x:s){
-        if(c==x){
-            cout<<"YES\n";
-            return;
+void solve(int n, vi a){
+           int sum = 0;
+        int negs = 0;
+        for(int i = 0; i < n; ++i) {
+            if(a[i] < 0) {
+                ++negs;
+                a[i] = -a[i];
+            }
+            sum += a[i];
         }
-    }
-    cout<<"NO\n";
-    return;
+        sort(a.begin(), a.end());
+        if(negs & 1) sum -=  2*a[0];
+        cout << sum << "\n";
+    return ;
+
 }
+
 void c_p_c()
 {
     int t;
     cin>>t;
     while(t--){
-        char n;
+        int n;
         cin>>n;
-        solve(n);
-      
+        // write code here
+        vi a(n);
+        for(int i=0;i<n;i++){
+            cin>>a[i];
+        }
+        solve(n,a);
     }
 }
  

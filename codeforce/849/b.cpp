@@ -24,7 +24,7 @@ mt19937                 rng(chrono::steady_clock::now().time_since_epoch().count
  
 //typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> pbds;
 
-int moduloMultiplicativeInverse(int a,int b){ // a/b modulo 100000007
+int moduloMultiplicativeInverse(int a,int b){
     if(a==0){
         return b==0;
     }
@@ -36,27 +36,45 @@ int moduloMultiplicativeInverse(int a,int b){ // a/b modulo 100000007
     }
     return ans;
 }
+void solve(int n, string s){
+    int x=0,y=0;
+    for(auto t:s){
+        if(t=='U'){
+            y++;
+        }
+         else if(t=='D'){
+            y--;
+        }
+         else if(t=='R'){
+            x++;
+        }
+         else if(t=='L'){
+            x--;
+        }
 
-const string s = "codeforces";
-void solve(char c){
-    for(auto x:s){
-        if(c==x){
+
+        if(x==1 && y== 1){
             cout<<"YES\n";
             return;
         }
+        
     }
     cout<<"NO\n";
     return;
+
 }
+
 void c_p_c()
 {
     int t;
     cin>>t;
     while(t--){
-        char n;
+        int n;
         cin>>n;
-        solve(n);
-      
+        string s;
+        cin>>s;
+        solve(n,s);
+        // write code here
     }
 }
  
